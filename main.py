@@ -21,6 +21,14 @@ def main():
             f'{guild.name}(id: {guild.id})'
         )
 
+    @client.event
+    async def on_message(message):
+        if message.author == client.user:
+            return
+
+        if message.content == "$register":
+            bank.register(message.author)
+
     client.run(TOKEN)
 
 if __name__ == "__main__":
