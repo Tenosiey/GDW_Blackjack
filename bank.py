@@ -6,7 +6,7 @@ def register(discord_uid, username, user_id):
         jsonFile.close()
 
     if str(discord_uid) in a_dictionary:
-        print("User is already registered")
+        print("User \"" + str(discord_uid) + "\" is already registered")
     else:
         data = {}
         data[str(discord_uid)] = []
