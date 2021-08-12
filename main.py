@@ -27,7 +27,7 @@ def main():
             return
 
         if message.content == "$register":
-            bank.register(message.author)
+            bank.register(message.author, message.author.name, message.author.id)
 
     client.run(TOKEN)
 
