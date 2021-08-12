@@ -33,7 +33,7 @@ def blackjack():
     print("Player got a Blackjack")
 
 def play_split():
-    input("Would you like to split your cards? y/n")
+    input("Would you like to split your cards? y/n\n")
 
 def stand():
     print("Ok, stand")
@@ -45,7 +45,7 @@ def double():
     print("Ok, double")
 
 def play():
-    choice = input("Would you like to Hit, Stand or Double?")
+    choice = input("Would you like to Hit, Stand or Double?\n")
     if choice == "stand":
         stand()
     elif choice == "hit":
