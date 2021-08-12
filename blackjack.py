@@ -43,22 +43,32 @@ def stand():
     print("Ok, stand")
 
 def hit():
-    print("Ok, hit")
-    
-    card = shoe.pop()
-    if card == 1:
-        card = "A"
-    if card == 11:
-        card = "J"
-    if card == 12:
-        card = "Q"
-    if card == 13:
-        card = "K"
-    player_hand.append(card)
-    
-    player_total_var = total(player_hand)
-    print(player_hand)
-    print(player_total_var)
+    while True:
+        print("Ok, hit")
+        
+        card = shoe.pop()
+        if card == 1:
+            card = "A"
+        if card == 11:
+            card = "J"
+        if card == 12:
+            card = "Q"
+        if card == 13:
+            card = "K"
+        player_hand.append(card)
+        
+        player_total_var = total(player_hand)
+        print("Players hand is: " + str(player_hand))
+        print("Players current total is: " + str(player_total_var))
+
+        if player_total_var >= 22:
+            print("Looks like you busted")
+            break
+
+        choice = input("would you like to hit again or stand?\n")
+        if choice == "stand":
+            stand()
+            break
 
 def double():
     print("Ok, double")
@@ -90,8 +100,8 @@ def game():
     print("Dealers hand is: " + str(dealer_hand))
     print("Dealers total is: " + str(dealer_total_var))
     
-    print("Players hand is: " + str(player_hand))
-    print("Players total is: " + str(player_total_var))
+    print("Players current hand is: " + str(player_hand))
+    print("Players current total is: " + str(player_total_var))
 
     if player_total_var == 21:
         blackjack()
