@@ -17,6 +17,13 @@ def deal():
     return hand
 
 def game_end():
+    if player_total_var == dealer_total_var:
+        print("Draw")
+    elif player_total_var > dealer_total_var:
+        print("You won")
+    else:
+        print("You lost")
+
     print("Game ended")
 
 def total(hand):
@@ -39,8 +46,8 @@ def dealer_turn():
         dealer_total_var = total(dealer_hand)
 
         print("Dealers hand is: " + str(dealer_hand))
-        print("Dealer current total is: " + str(dealer_total_var))
-        
+        print("Dealers current total is: " + str(dealer_total_var))
+
         if dealer_total_var >= 17:
             game_end()
             break
@@ -129,8 +136,8 @@ def game():
     dealer_total_var = total(dealer_hand)
     player_total_var = total(player_hand)
 
-    print("Dealers hand is: " + str(dealer_hand))
-    print("Dealers total is: " + str(dealer_total_var))
+    print("Dealers current hand is: " + str(dealer_hand))
+    print("Dealers current total is: " + str(dealer_total_var))
     
     print("Players current hand is: " + str(player_hand))
     print("Players current total is: " + str(player_total_var))
