@@ -16,6 +16,9 @@ def deal():
         hand.append(card)
     return hand
 
+def game_end():
+    print("Game ended")
+
 def total(hand):
     total = 0
     for card in hand:
@@ -29,6 +32,34 @@ def total(hand):
             total += card
     return total
 
+def dealer_turn():
+    print("Dealers turn")
+
+    while True:
+        dealer_total_var = total(dealer_hand)
+
+        print("Dealers hand is: " + str(dealer_hand))
+        print("Dealer current total is: " + str(dealer_total_var))
+        
+        if dealer_total_var >= 17:
+            game_end()
+            break
+
+        card = shoe.pop()
+        if card == 1:
+            card = "A"
+        if card == 11:
+            card = "J"
+        if card == 12:
+            card = "Q"
+        if card == 13:
+            card = "K"
+        dealer_hand.append(card)
+
+        if dealer_total_var >= 22:
+            print("Dealer busted")
+            break
+
 def blackjack():
     print("Player got a Blackjack")
 
@@ -41,6 +72,7 @@ def play_split():
 
 def stand():
     print("Ok, stand")
+    dealer_turn()
 
 def hit():
     while True:
