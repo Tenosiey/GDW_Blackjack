@@ -2,27 +2,24 @@ import os
 import discord
 
 import blackjack
+import bank
 
 from dotenv import load_dotenv
 
 def main():
     load_dotenv()
     TOKEN = os.getenv('DISCORD_TOKEN')
+    GUILD = os.getenv('DISCORD_GUILD')
 
     client = discord.Client()
 
     @client.event
     async def on_ready():
-        print(f'{client.user} has connected to Discord!')
-
-    @client.event
-    async def on_message(message):
-        if message.author == client.user:
-            return
-
-        if message.content == '99!':
-            response = "99!"
-            await message.channel.send(response)
+        guild = discord.utils.get(client.guilds, name=GUILD)
+        print(
+            f'{client.user} is connected to the following guild:\n'
+            f'{guild.name}(id: {guild.id})'
+        )
 
     client.run(TOKEN)
 
