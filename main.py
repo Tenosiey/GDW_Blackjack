@@ -1,17 +1,17 @@
 import os
 import discord
+from dotenv import load_dotenv
+from discord.ext import commands
 
 import blackjack
 import bank
-
-from dotenv import load_dotenv
 
 def main():
     load_dotenv()
     TOKEN = os.getenv("DISCORD_TOKEN")
     GUILD = os.getenv("DISCORD_GUILD")
 
-    client = discord.Client()
+    client = commands.Bot(command_prefix = "$")
 
     @client.event
     async def on_ready():
@@ -21,24 +21,23 @@ def main():
             f"{guild.name}(id: {guild.id})"
         )
 
-    @client.event
-    async def on_message(message):
-        if message.author == client.user:
-            return
+    @client.command()
+    async def bjhelp(ctx):
+        bot_help = open("help.txt", "r")
+        await ctx.send(bot_help.read())
 
-        if message.content == "$help":
-            bot_help = open("help.txt", "r")
-            await message.channel.send(bot_help.read())
+    @client.command()
+    async def register(ctx):
+        bank.register(ctx.author, ctx.author.name, ctx.author.id)
 
-        if message.content == "$register":
-            bank.register(message.author, message.author.name, message.author.id)
+    @client.command()
+    async def money(ctx):
+        money = bank.money(ctx.author)
+        await ctx.channel.send("<@" + str(ctx.author.id) + ">\nCurrently you have: " + str(money) + "$")
 
-        if message.content == "$money":
-            money = bank.money(message.author)
-            await message.channel.send("<@" + str(message.author.id) + ">\nCurrently you have: " + str(money) + "$")
-
-        if message.content == "$blackjack":
-            blackjack.play()
+    @client.command()
+    async def blackjack(ctx, arg1):
+        blackjack.play(arg1)
 
     client.run(TOKEN)
 
