@@ -28,7 +28,7 @@ def main():
 
         if message.content == "$help":
             bot_help = open("help.txt", "r")
-            await message.channel.send("```" + bot_help.read() + "```")
+            await message.channel.send(bot_help.read())
 
         if message.content == "$register":
             bank.register(message.author, message.author.name, message.author.id)

@@ -1,3 +1,7 @@
+```
 $register   = Create a new account
 $money      = Display you current amount of money
 $blackjack  = Play a round of Blackjack
+```
+Or you can view the Source-Code on Github!
+https://github.com/Tenosiey/GDW_Blackjack
