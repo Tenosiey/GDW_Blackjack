@@ -8,54 +8,50 @@ import blackjack
 import bank
 import checkbalance
 
-def main():
-    load_dotenv()
-    TOKEN = os.getenv("DISCORD_TOKEN")
-    GUILD = os.getenv("DISCORD_GUILD")
+load_dotenv()
+TOKEN = os.getenv("DISCORD_TOKEN")
+GUILD = os.getenv("DISCORD_GUILD")
 
-    client = commands.Bot(command_prefix = "$")
+client = commands.Bot(command_prefix = "$")
 
-    @client.event
-    async def on_ready():
-        guild = discord.utils.get(client.guilds, name = GUILD)
-        print(
-            f"{client.user} is connected to the following guild:\n"
-            f"{guild.name} (id: {guild.id})"
-        )
+@client.event
+async def on_ready():
+    guild = discord.utils.get(client.guilds, name = GUILD)
+    print(
+        f"{client.user} is connected to the following guild:\n"
+        f"{guild.name} (id: {guild.id})"
+    )
 
-    @client.command()
-    async def bjhelp(ctx):
-        bot_help = open("help.txt", "r")
-        await ctx.send(bot_help.read())
+@client.command()
+async def bjhelp(ctx):
+    bot_help = open("help.txt", "r")
+    await ctx.send(bot_help.read())
 
-    @client.command()
-    async def register(ctx):
-        bank.register(ctx.author, ctx.author.name, ctx.author.id)
+@client.command()
+async def register(ctx):
+    bank.register(ctx.author, ctx.author.name, ctx.author.id)
 
-    @client.command()
-    async def money(ctx):
-        money = bank.money(ctx.author)
-        await ctx.channel.send("<@" + str(ctx.author.id) + ">\nCurrently you have: " + str(money) + "$")
+@client.command()
+async def money(ctx):
+    money = bank.money(ctx.author)
+    await ctx.channel.send("<@" + str(ctx.author.id) + ">\nCurrently you have: " + str(money) + "$")
 
-    @client.command(name = "blackjack")
-    async def blackjack_func(ctx, arg1):
-        if checkbalance.check(ctx.author, arg1) == True:
-            result = blackjack.game(ctx.author, arg1)
-            print(result)
-            if result == "error":
-                await ctx.channel.send("Error, command not known")
-            elif result == "draw":
-                await ctx.channel.send("draw")
-            elif result == "won":
-                await ctx.channel.send("won")
-            elif result == "blackjack":
-                await ctx.channel.send("blackjack")
-            else:
-                await ctx.channel.send("lost")
+@client.command(name = "blackjack")
+async def blackjack_func(ctx, arg1):
+    if checkbalance.check(ctx.author, arg1) == True:
+        result = blackjack.game(ctx.author, arg1)
+        print(result)
+        if result == "error":
+            await ctx.channel.send("Error, command not known.")
+        elif result == "draw":
+            await ctx.channel.send("The game ended in a draw.")
+        elif result == "won":
+            await ctx.channel.send("Hey! You won!")
+        elif result == "blackjack":
+            await ctx.channel.send("Wow! You go a blackjack!")
         else:
-            await ctx.channel.send("I'm sorry, but your balance seems to be to low")
+            await ctx.channel.send("Oh, darn it! You lost...\nHow about another round?")
+    else:
+        await ctx.channel.send("I'm sorry, but your balance seems to be to low")
 
-    client.run(TOKEN)
-
-if __name__ == "__main__":
-    main()
+client.run(TOKEN)
