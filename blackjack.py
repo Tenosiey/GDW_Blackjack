@@ -21,15 +21,25 @@ def deal():
     return hand
 
 def game_end():
+    global result
+    global dealer_total_var
+    global player_total_var
+
     print("Dealers hand: " + str(dealer_total_var))
     print("Your hand: " + str(player_total_var))
 
     if player_total_var == dealer_total_var:
         print("Draw")
+        result = "draw"
     elif player_total_var > dealer_total_var:
         print("You won")
+        result = "won"
+    elif dealer_total_var >= 22:
+        print("Dealer busted")
+        result = "won"
     else:
         print("You lost")
+        result = "lost"
 
     print("Game ended")
 
@@ -59,23 +69,22 @@ def dealer_turn():
         if dealer_total_var >= 17:
             game_end()
             break
-
-        card = shoe.pop()
-        if card == 1:
-            card = "A"
-        if card == 11:
-            card = "J"
-        if card == 12:
-            card = "Q"
-        if card == 13:
-            card = "K"
-        dealer_hand.append(card)
-
-        if dealer_total_var >= 22:
-            print("Dealer busted")
-            break
+        else:
+            card = shoe.pop()
+            if card == 1:
+                card = "A"
+            if card == 11:
+                card = "J"
+            if card == 12:
+                card = "Q"
+            if card == 13:
+                card = "K"
+            dealer_hand.append(card)
 
 def blackjack():
+    global result
+
+    result = "blackjack"
     print("Player got a Blackjack")
 
 def play_split():
@@ -90,7 +99,9 @@ def stand():
     dealer_turn()
 
 def hit():
+    global result
     global player_total_var
+
     while True:
         print("Ok, hit")
         
@@ -111,6 +122,7 @@ def hit():
 
         if player_total_var >= 22:
             print("Looks like you busted")
+            result = "lost"
             break
 
         choice = input("would you like to hit again or stand?\n")
@@ -122,6 +134,8 @@ def double():
     print("Ok, double")
 
 def play():
+    global result
+
     choice = input("Would you like to Hit, Stand or Double?\n")
     if choice == "stand":
         stand()
@@ -131,13 +145,17 @@ def play():
         double()
     else:
         print("Error, command not known")
+        result  = "error"
 
-def game():
+def game(discord_uid, bet):
+    global result
     global dealer_hand
     global player_hand
 
     global dealer_total_var
     global player_total_var
+
+    result = ""
 
     dealer_hand = deal()
     player_hand = deal()
@@ -157,6 +175,8 @@ def game():
         play_split()
     else:
         play()
+
+    return result
 
 if __name__ == "__main__":
     game()

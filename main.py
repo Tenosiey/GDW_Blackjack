@@ -2,6 +2,7 @@ import os
 import discord
 from dotenv import load_dotenv
 from discord.ext import commands
+from dotenv.main import resolve_variables
 
 import blackjack
 import bank
@@ -39,7 +40,18 @@ def main():
     @client.command(name = "blackjack")
     async def blackjack_func(ctx, arg1):
         if checkbalance.check(ctx.author, arg1) == True:
-            blackjack.play(ctx.author, arg1)
+            result = blackjack.game(ctx.author, arg1)
+            print(result)
+            if result == "error":
+                await ctx.channel.send("Error, command not known")
+            elif result == "draw":
+                await ctx.channel.send("draw")
+            elif result == "won":
+                await ctx.channel.send("won")
+            elif result == "blackjack":
+                await ctx.channel.send("blackjack")
+            else:
+                await ctx.channel.send("lost")
         else:
             await ctx.channel.send("I'm sorry, but your balance seems to be to low")
 
