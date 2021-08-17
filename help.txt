@@ -1,0 +1,3 @@
+$register   = Create a new account
+$money      = Display you current amount of money
+$blackjack  = Play a round of Blackjack
