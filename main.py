@@ -8,8 +8,8 @@ from dotenv import load_dotenv
 
 def main():
     load_dotenv()
-    TOKEN = os.getenv('DISCORD_TOKEN')
-    GUILD = os.getenv('DISCORD_GUILD')
+    TOKEN = os.getenv("DISCORD_TOKEN")
+    GUILD = os.getenv("DISCORD_GUILD")
 
     client = discord.Client()
 
@@ -17,8 +17,8 @@ def main():
     async def on_ready():
         guild = discord.utils.get(client.guilds, name=GUILD)
         print(
-            f'{client.user} is connected to the following guild:\n'
-            f'{guild.name}(id: {guild.id})'
+            f"{client.user} is connected to the following guild:\n"
+            f"{guild.name}(id: {guild.id})"
         )
 
     @client.event
