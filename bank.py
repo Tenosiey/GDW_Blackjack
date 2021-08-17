@@ -21,5 +21,13 @@ def register(discord_uid, username, user_id):
         with open("bank.json", "w", encoding="utf-8") as f:
             json.dump(dict_bank, f, ensure_ascii=False, indent=4)
 
+def money(discord_uid):
+    with open("bank.json") as jsonFile:
+        bank_file = json.load(jsonFile)
+        jsonFile.close()
+    user_info = bank_file[str(discord_uid)]
+    current_money = user_info["money"]
+    return current_money
+
 if __name__ == "__main__":
     register()

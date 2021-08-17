@@ -29,6 +29,10 @@ def main():
         if message.content == "$register":
             bank.register(message.author, message.author.name, message.author.id)
 
+        if message.content == "$money":
+            money = bank.money(message.author)
+            await message.channel.send("<@" + str(message.author.id) + ">\nCurrently you have: " + str(money) + "$")
+
     client.run(TOKEN)
 
 if __name__ == "__main__":
