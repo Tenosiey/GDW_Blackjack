@@ -1,5 +1,9 @@
 import random
 
+decks = 6                                                               # Setting the size of the shoe
+shoe = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]*4*decks              # Creating the shoe
+random.shuffle(shoe)                                                    # Shuffle the shoe
+
 def deal():
     hand = []
 
@@ -155,8 +159,4 @@ def game():
         play()
 
 if __name__ == "__main__":
-    decks = 6                                                               # Setting the size of the shoe
-    shoe = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]*4*decks              # Creating the shoe
-    random.shuffle(shoe)                                                    # Shuffle the shoe
-
     game()
