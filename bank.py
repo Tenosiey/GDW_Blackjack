@@ -29,5 +29,15 @@ def money(discord_uid):
     current_money = user_info["money"]
     return current_money
 
+def handle_bet(discord_uid, bet):
+    with open("bank.json") as jsonFile:
+        bank_file = json.load(jsonFile)
+        jsonFile.close()
+    user_info = bank_file[str(discord_uid)]
+    current_money = user_info["money"]
+    up_dict = {"money":current_money - bet}
+    user_info.update(up_dict)
+    return user_info
+
 if __name__ == "__main__":
-    register()
+    pass

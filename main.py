@@ -48,7 +48,7 @@ async def blackjack_func(ctx, arg1):
         elif result == "won":
             await ctx.channel.send("Hey! You won!")
         elif result == "blackjack":
-            await ctx.channel.send("Wow! You go a blackjack!")
+            await ctx.channel.send("Wow! You got a blackjack!")
         else:
             await ctx.channel.send("Oh, darn it! You lost...\nHow about another round?")
     else:
