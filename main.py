@@ -39,16 +39,23 @@ async def money(ctx):
 @client.command(name = "blackjack")
 async def blackjack_func(ctx, arg1):
     if checkbalance.check(ctx.author, arg1) == True:
+        bank.handle_bet(ctx.author, arg1)
         result = blackjack.game(ctx.author, arg1)
         print(result)
         if result == "error":
             await ctx.channel.send("Error, command not known.")
         elif result == "draw":
             await ctx.channel.send("The game ended in a draw.")
+            payout_draw = int(arg1) * -1
+            bank.handle_bet(ctx.author, payout_draw)
         elif result == "won":
             await ctx.channel.send("Hey! You won!")
+            payout_won = int(arg1) * -2
+            bank.handle_bet(ctx.author, payout_won)
         elif result == "blackjack":
             await ctx.channel.send("Wow! You got a blackjack!")
+            payout_blackjack = int(arg1) * -2.5
+            bank.handle_bet(ctx.author, payout_blackjack)
         else:
             await ctx.channel.send("Oh, darn it! You lost...\nHow about another round?")
     else:
