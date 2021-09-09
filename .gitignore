@@ -1,3 +1,5 @@
 /.env
 /bank.json
 /__pycache__
+/blackjack_new.py
+/main_new.py
